@@ -57,9 +57,9 @@ def deck_builder():
                 available_packs_m.append(pack_name)
         for i in range(len(available_packs) + len(available_packs_m)):
             if i < len(available_packs):
-                print(f"{i+1}. {available_packs[i]} Pack {"[ON]" if available_packs[i] in save_data["equipped"] else ""}")
+                print(f"{i+1}. {available_packs[i]} Pack {'[ON]' if available_packs[i] in save_data['equipped'] else ''}")
             else:
-                print(f"{i+1}. {available_packs_m[i - len(available_packs)]} Pack(M) {"[ON]" if available_packs_m[i - len(available_packs)] in save_data["equipped_m"] else ""}")
+                print(f"{i+1}. {available_packs_m[i - len(available_packs)]} Pack(M) {'[ON]' if available_packs_m[i - len(available_packs)] in save_data['equipped_m'] else ''}")
         print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
         if choice.lower() == "exit":
