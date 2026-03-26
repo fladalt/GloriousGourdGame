@@ -1,0 +1,37 @@
+{
+    "statistics": {
+        "pebbles": 0,
+        "seeds": 0,
+        "total rolls": 0,
+        "wins": 0
+    },
+    "bosses": {
+
+    },
+    "equipped": [
+        "Beginner"
+    ],
+    "equipped_m": [
+        "Beginner"
+    ],
+    "equipped_r": [],
+    "packs": {
+        "Beginner": {
+            "unlocked": true
+        }
+    },
+    "packs_m": {
+        "Beginner": {
+            "unlocked": true
+        }
+    },
+    "items": {
+        
+    },
+    "modifiers": {
+
+    },
+    "relics": {
+
+    }
+}
