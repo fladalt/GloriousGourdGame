@@ -42,7 +42,7 @@ def special_weapon(modifier, weapon):
     
 def defeated(pebbles):
     os.system("cls")
-    print("""
+    print(r"""
   ____  _____    _  _____ _   _ 
  |  _ \| ____|  / \|_   _| | | |
  | | | |  _|   / _ \ | | | |_| |
