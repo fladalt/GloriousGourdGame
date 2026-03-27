@@ -26,7 +26,7 @@ empty = {
     "Tag": "Empty"
 }
 
-vowels = ('aeio')
+vowels = 'aeio'
 
 gourd_enemies = ("Gourd",
                  "Gourd's Father",
@@ -84,7 +84,7 @@ def shop(listings, m_listing):
         line_1_length = 0
         line_2_length = 0
         for i, (listing, listing_data) in enumerate(listings.items(), start=1):
-            listing_text = (f"{i}. {listing} Pack [₲{listing_data['price']}]" if listing_data["purchased"] == False else Color.ITALIC + Color.GRAY + f"{i}. {listing} Pack [Purchased]" + Color.END)
+            listing_text = (f"{i}. {listing} Pack [₲{listing_data['price']}]" if listing_data["purchased"] is False else Color.ITALIC + Color.GRAY + f"{i}. {listing} Pack [Purchased]" + Color.END)
             if i == 1:
                 line_1 += listing_text
                 line_1_length += len(line_1)
@@ -102,7 +102,7 @@ def shop(listings, m_listing):
                     line_2 += " " * (line_1_length - line_2_length)
                 line_1 += "   " + listing_text
         if m_listing:
-            listing_text = (f"4. {m_listing['name']} Pack(M) [₲{m_listing['price']}]" if m_listing["purchased"] == False else Color.ITALIC + Color.GRAY + f"4. {m_listing['name']} Pack [Purchased]" + Color.END)
+            listing_text = (f"4. {m_listing['name']} Pack(M) [₲{m_listing['price']}]" if m_listing["purchased"] is False else Color.ITALIC + Color.GRAY + f"4. {m_listing['name']} Pack [Purchased]" + Color.END)
             line_2 += "   " + listing_text
         print(line_1 + "\n")
         print(line_2)
@@ -111,7 +111,7 @@ def shop(listings, m_listing):
         for i, (listing, listing_data) in enumerate(listings.items(), start=1):
             try:
                 if int(choice) > 0 and int(choice) < 4 and int(choice) == i:
-                    if listing_data["purchased"] == False and save_data["statistics"]["pebbles"] >= listing_data["price"]:
+                    if listing_data["purchased"] is False and save_data["statistics"]["pebbles"] >= listing_data["price"]:
                         listing_data["purchased"] = True
                         game_data.add_pebbles(-listing_data["price"])
                         game_data.unlock_pack(listing)
@@ -119,7 +119,7 @@ def shop(listings, m_listing):
                 pass
         try:
             if int(choice) == 4 and m_listing:
-                if m_listing["purchased"] == False and save_data["statistics"]["pebbles"] >= m_listing["price"]:
+                if m_listing["purchased"] is False and save_data["statistics"]["pebbles"] >= m_listing["price"]:
                     m_listing["purchased"] = True
                     game_data.add_pebbles(-m_listing["price"])
                     game_data.unlock_pack_m(m_listing["name"])
@@ -133,7 +133,7 @@ def shop(listings, m_listing):
 def encyclopedia():
     while True:
         bh.clear_screen()
-        print(f"1. Item Packs\n2. Modifier Packs [WIP]")
+        print("1. Item Packs\n2. Modifier Packs [WIP]")
         print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
         if choice == "1":
@@ -180,7 +180,7 @@ def altar():
             if name in save_data["equipped_r"]:
                 print(f"{Color.BOLD}{Color.RAINBOW(f'{i}. Relic of {name}')}")
                 print(f"   {Color.ITALIC}{data['Lore']}{Color.END}\n")
-            elif save_data["relics"][name]["unlocked"] == True:
+            elif save_data["relics"][name]["unlocked"] is True:
                 print(f"{i}. Relic of {name}")
                 print(f"   {Color.GRAY}{Color.ITALIC}{data['Lore']}{Color.END}\n")
             else:
@@ -234,10 +234,10 @@ def run():
         available_packs = []
         available_packs_m = []
         for pack in save_data["packs"]:
-            if save_data["packs"][pack]["unlocked"] == False:
+            if save_data["packs"][pack]["unlocked"] is False:
                 available_packs.append(pack)
         for pack in save_data["packs_m"]:
-            if save_data["packs_m"][pack]["unlocked"] == False:
+            if save_data["packs_m"][pack]["unlocked"] is False:
                 available_packs_m.append(pack)
         for i in range(3):
             while True:
@@ -289,7 +289,7 @@ def run():
             else:
                 print(Color.GRAY + Color.ITALIC + "7. The Altar" + Color.END)
             print("8. Statistics")
-            if rollable == False:
+            if rollable is False:
                 if len(save_data["equipped_r"]) > 0:
                     print(f"\n{Color.GRAY}{Color.ITALIC}You need at least 3 Item Packs and 1 Modifier Pack equipped to roll when using a Relic{Color.END}\n")
                 else:
@@ -466,7 +466,7 @@ def run():
             audio.play_audio("GourdFinalWeapon")
             bh.timed_print(f"The {current_gourd} attacks you with{g_weapon_name}\n")
 
-            for attacks in range(repeat):
+            for _ in range(repeat):
                 # Weapon/modifier picking logic for player
                 weapon_picks = []
                 modifier_picks = [random.choice(full_picks_m) if random.uniform(0, modifier_chance) <= 1 else ("", empty) for i in range (weapon_amount)]
@@ -500,7 +500,7 @@ def run():
                 for v in sorted_values:
                     if v > g_damage:
                         allowed_values.append(v)
-            
+
                 while True:
                     choice = input("\n>")
                     try:
@@ -582,7 +582,7 @@ def run():
 
             if ("Holy" in modifier_name and "Unholy" in g_modifier_name) and current_gourd not in gourd_bosses:
                 bh.timed_print(f"You dealt {Color.DAMAGE}{damage:.1f} Holy Damage!{Color.END}", 2000)
-                bh.timed_print(f"It was enough to make an escape", 1500)
+                bh.timed_print("It was enough to make an escape", 1500)
                 audio.play_audio("GourdBag")
                 bh.timed_print(f"Whilst running away you manage to gather {Color.PEBBLE}₲{new_pebbles}{Color.END} and {Color.SEED}{new_seeds} Gourd Seed" + ("s" if new_seeds > 1 else "") + Color.END, 2000)
                 current_pebbles += new_pebbles
@@ -601,14 +601,14 @@ def run():
 
             elif "Hyperdense" in modifier_name and damage < 10 and current_gourd not in gourd_bosses:
                 bh.timed_print(f"You dealt {Color.DAMAGE}{damage:.1f} Dense Damage!{Color.END}", 2000)
-                bh.timed_print(f"It was enough to make an escape", 1500)
+                bh.timed_print("It was enough to make an escape", 1500)
                 audio.play_audio("GourdBag")
                 bh.timed_print(f"Whilst running away you manage to gather {Color.PEBBLE}₲{new_pebbles}{Color.END} and {Color.SEED}{new_seeds} Gourd Seed" + ("s" if new_seeds > 1 else "") + Color.END, 2000)
                 current_pebbles += new_pebbles
                 current_seeds += new_seeds
 
             elif "Hyperdense" in modifier_name and damage >= 10 and current_gourd not in gourd_bosses:
-                bh.timed_print(f"You barely swung your weapon, it was too heavy", 2000)
+                bh.timed_print("You barely swung your weapon, it was too heavy", 2000)
                 bh.timed_print(f"You get stabbed right in the heart by{g_weapon_name}", 2000)
                 game_data.add_pebbles(int(current_pebbles / 2))
                 print(Color.ITALIC + Color.GRAY + "(Press 'enter' to continue)" + Color.END)
@@ -638,12 +638,12 @@ def run():
                 new_pebbles = 0
                 new_seeds = 0
                 bh.timed_print(f"The {current_gourd} dodges", 2000)
-                bh.timed_print(f"They decide to spare you", 1500)
-                bh.timed_print(f"You run away without any rewards", 2000)
+                bh.timed_print("They decide to spare you", 1500)
+                bh.timed_print("You run away without any rewards", 2000)
 
             elif damage > g_total_damage:
                 bh.timed_print(f"You dealt {Color.DAMAGE}{damage:.1f} Damage!{Color.END}", 2000)
-                bh.timed_print(f"It was enough to make an escape", 1500)
+                bh.timed_print("It was enough to make an escape", 1500)
                 audio.play_audio("GourdBag")
                 bh.timed_print(f"Whilst running away you manage to gather {Color.PEBBLE}₲{new_pebbles}{Color.END} and {Color.SEED}{new_seeds} Gourd Seed" + ("s" if new_seeds > 1 else "") + Color.END, 2000)
                 if current_gourd in gourd_bosses and mess_king_repeat == 0:
@@ -667,7 +667,7 @@ def run():
                 new_seeds = 0
                 bh.timed_print(f"You dealt {Color.DAMAGE}{damage:.1f} Damage!{Color.END}", 2000)
                 bh.timed_print(f"But so did the {current_gourd}", 1500)
-                bh.timed_print(f"You have earned their respect for now", 2000)
+                bh.timed_print("You have earned their respect for now", 2000)
                 audio.play_audio("GourdBag")
                 bh.timed_print(f"Whilst leaving you pick up {Color.PEBBLE}₲{new_pebbles}{Color.END} from the ground", 2000)
                 current_pebbles += new_pebbles
