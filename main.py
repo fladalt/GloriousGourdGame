@@ -46,6 +46,7 @@ for boss in boss_data.keys():
 def deck_builder():
     while True:
         bh.clear_screen()
+        print(Color.HEADER + Color.BOLD + "DECK BUILDER\n" + Color.END)
         available_packs = []
         available_packs_m = []
         for pack_name, pack in save_data["packs"].items():
@@ -59,6 +60,8 @@ def deck_builder():
                 print(f"{i+1}. {available_packs[i]} Pack {'[ON]' if available_packs[i] in save_data['equipped'] else ''}")
             else:
                 print(f"{i+1}. {available_packs_m[i - len(available_packs)]} Pack(M) {'[ON]' if available_packs_m[i - len(available_packs)] in save_data['equipped_m'] else ''}")
+        print(f"\nPebble Multiplier: {Color.MULT}X{1 + len(save_data["equipped"]) / 10}{Color.END}")
+        print(f"Extra Seeds: {Color.EXTRA}+{math.floor((len(list(i for i in save_data["equipped"])) + len(list(i for i in save_data["equipped_m"]))) / 10)}{Color.END}")
         print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
         if choice.lower() == "exit":
@@ -106,7 +109,7 @@ def shop(listings, m_listing):
             line_2 += "   " + listing_text
         print(line_1 + "\n")
         print(line_2)
-        print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
+        print(f"\n{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
         for i, (listing, listing_data) in enumerate(listings.items(), start=1):
             try:
@@ -133,6 +136,7 @@ def shop(listings, m_listing):
 def encyclopedia():
     while True:
         bh.clear_screen()
+        print(Color.HEADER + Color.BOLD + "ENCYCLOPEDIA\n" + Color.END)
         print("1. Item Packs\n2. Modifier Packs [WIP]")
         print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
@@ -176,6 +180,7 @@ def inner_encyclopedia(item : bool):
 def altar():
     while True:
         bh.clear_screen()
+        print(Color.HEADER + Color.BOLD + "THE ALTAR\n" + Color.END)
         for i, (name, data) in enumerate(relic_data.items(), start=1):
             if name in save_data["equipped_r"]:
                 print(f"{Color.BOLD}{Color.RAINBOW(f'{i}. Relic of {name}')}")
@@ -187,6 +192,7 @@ def altar():
                 print(f"{Color.GRAY}{Color.ITALIC}{i}. Relic of {name} [LOCKED]{Color.END}")
                 print(f"   {Color.GRAY}{Color.ITALIC}{data['Unlock']}{Color.END}\n")
         print(f"Pebble Multiplier: {Color.MULT}X{len(save_data['equipped_r']) + 1}{Color.END}")
+        print(f"[{len(save_data['equipped_r'])}/1] Equipped")
         print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
         for i, (name, data) in enumerate(relic_data.items(), start=1):

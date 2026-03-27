@@ -21,6 +21,8 @@ Have fun playing Glorious Gourd Game :)
 ## Credits
 Lirrez - Town Theme
 
+Obogg - Linux compatability + general code help
+
 >"The greatest gourd is the gourd yet harvested"
 >
 >\- John Calender

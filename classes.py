@@ -173,6 +173,7 @@ class Color:
     SEED = '\033[38:5:70m'
     DAMAGE = '\033[48:5:88m'
     MULT = '\033[48:5:53m'
+    EXTRA = '\033[48:5:63m'
 
     @staticmethod
     def RAINBOW(text, start=-1):
