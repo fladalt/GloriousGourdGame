@@ -20,26 +20,31 @@ def slow_text(text, ms = 50):
 def estimate_damage(modifier, weapon):
     if modifier["Tag"] == "Mult":
         return weapon["Damage"] * modifier["Value"]
-    elif modifier["Tag"] == "Add":
+    if modifier["Tag"] == "Add":
         return weapon["Damage"] + modifier["Value"]
-    else:
-        return weapon["Damage"]
+
+    return weapon["Damage"]
 
 def special_weapon(modifier, weapon):
     if modifier == "Gambling":
         return weapon["Damage"] * 0 if random.randint(0, 1) == 0 else 100
-    elif modifier == "Shiny":
+
+    if modifier == "Shiny":
         return weapon["Damage"] * random.uniform(1, 2)
-    elif modifier == "Rusty":
+
+    if modifier == "Rusty":
         return weapon["Damage"] * random.uniform(0.5, 1)
-    elif modifier == "Thriving":
+
+    if modifier == "Thriving":
         return weapon["Damage"] + random.uniform(0, 5)
-    elif modifier == "Moldy":
+
+    if modifier == "Moldy":
         return weapon["Damage"] - random.uniform(0, 5)
-    elif modifier == "Demonic":
+
+    if modifier == "Demonic":
         return weapon["Damage"] + random.randint(-5, 5)
-    else:
-        return weapon["Damage"]
+
+    return weapon["Damage"]
 
 def clear_screen():
     if sys.platform == "linux":
