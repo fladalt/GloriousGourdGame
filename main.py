@@ -209,10 +209,43 @@ def altar():
         if choice.lower() == "exit":
             break
 
+def board():
+    while True:
+        bh.clear_screen()
+        print(f"{Color.BOLD}{Color.HEADER}NOTICE BOARD{Color.END}")
+        print("Play more to unlock tips on certain mechanics\n")
+        rolls = save_data["statistics"]["total rolls"]
+
+        if rolls >= 15:
+            print("Dying in a run will only reward you with half the pebbles you've earned and 0 seeds")
+        else:
+            print(f"{Color.GRAY}{Color.ITALIC}???{Color.END}")
+
+        if rolls >= 30:
+            print("Every boss has its own set gimmick which might be valuable to learn")
+        else:
+            print(f"{Color.GRAY}{Color.ITALIC}???{Color.END}")
+
+        if rolls >= 45:
+            print("Getting further and further into a run will increase the rewards you get for each completed roll")
+        else:
+            print(f"{Color.GRAY}{Color.ITALIC}???{Color.END}")
+
+        if rolls >= 60:
+            print("In certain situations where all your weapon choices are worse than the enemies weapon, chose the worst weapon of yours and you'll be spared")
+        else:
+            print(f"{Color.GRAY}{Color.ITALIC}???{Color.END}")
+
+
+        print(f"\n{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
+        choice = input(">")
+        if choice.lower() == "exit":
+            break
+
 def statistics():
     while True:
         bh.clear_screen()
-        print(f"{Color.BOLD}{Color.HEADER}Stats{Color.END}")
+        print(f"{Color.BOLD}{Color.HEADER}STATISTICS{Color.END}")
         print(f"\nGourd Pebbles:\n{save_data['statistics']['pebbles']}")
         print(f"\nGourd Seeds:\n{save_data['statistics']['seeds']}")
         print(f"\nTotal Rolls:\n{save_data['statistics']['total rolls']}")
@@ -294,7 +327,8 @@ def run():
                 print("7. The Altar")
             else:
                 print(Color.GRAY + Color.ITALIC + "7. The Altar" + Color.END)
-            print("8. Statistics")
+            print("8. Notice Board")
+            print("9. Statistics")
             if rollable is False:
                 if len(save_data["equipped_r"]) > 0:
                     print(f"\n{Color.GRAY}{Color.ITALIC}You need at least 3 Item Packs and 1 Modifier Pack equipped to roll when using a Relic{Color.END}\n")
@@ -316,6 +350,8 @@ def run():
             elif choice == "7" and total_boss_defeats >= 3:
                 altar()
             elif choice == "8":
+                board()
+            elif choice == "9":
                 statistics()
 
         audio.stop_audio("Town", 500)
