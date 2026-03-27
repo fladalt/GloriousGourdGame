@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 import random
 from classes import Color
@@ -39,10 +40,15 @@ def special_weapon(modifier, weapon):
         return weapon["Damage"] + random.randint(-5, 5)
     else:
         return weapon["Damage"]
-    
+
+def clear_screen():
+    if sys.platform == "linux":
+        os.system("clear")
+    else:
+        os.system("cls")
 
 def defeated(pebbles):
-    os.system("cls")
+    clear_screen()
     print(r"""
   ____  _____    _  _____ _   _ 
  |  _ \| ____|  / \|_   _| | | |

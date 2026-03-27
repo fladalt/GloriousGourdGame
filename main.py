@@ -46,7 +46,7 @@ for boss in boss_data.keys():
 
 def deck_builder():
     while True:
-        os.system('cls')
+        bh.clear_screen()
         available_packs = []
         available_packs_m = []
         for pack_name, pack in save_data["packs"].items():
@@ -77,7 +77,7 @@ def shop(listings, m_listing):
     #audio.stop_audio("Town", 100)
     #audio.play_audio("GourdShop", True, 100)
     while True:
-        os.system('cls')
+        bh.clear_screen()
         print(Color.HEADER + Color.BOLD + "SHOP" + Color.END)
         print(f"{Color.PEBBLE}₲{save_data['statistics']['pebbles']}{Color.END}\n")
         line_1 = ""
@@ -133,7 +133,7 @@ def shop(listings, m_listing):
 
 def encyclopedia():
     while True:
-        os.system('cls')
+        bh.clear_screen()
         print(f"1. Item Packs\n2. Modifier Packs [WIP]")
         print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
@@ -146,7 +146,7 @@ def encyclopedia():
 
 def inner_encyclopedia(item : bool):
     while True:
-        os.system('cls')
+        bh.clear_screen()
         pack_unlocked = {}
         for i, (pack_name, pack_data) in enumerate((item_data.items() if item else modifier_data.items()), start=1):
             if (save_data["packs"][pack_name]["unlocked"] if item else save_data["packs_m"][pack_name]["unlocked"]):
@@ -163,7 +163,7 @@ def inner_encyclopedia(item : bool):
             try:
                 if pack_unlocked[int(choice)][0]:
                     while True:
-                        os.system('cls')
+                        bh.clear_screen()
                         for thing_name, thing in pack_unlocked[int(choice)][1].items():
                             if item:
                                 print(Color.BOLD + Color.HEADER + f"{thing_name}" + Color.END + f"\nDamage: {thing['Damage'] if save_data['items'][thing_name]['used'] else '?'}\nLore: {thing['Lore']}\n")
@@ -176,7 +176,7 @@ def inner_encyclopedia(item : bool):
 
 def altar():
     while True:
-        os.system("cls")
+        bh.clear_screen()
         for i, (name, data) in enumerate(relic_data.items(), start=1):
             if name in save_data["equipped_r"]:
                 print(f"{Color.BOLD}{Color.RAINBOW(f'{i}. Relic of {name}')}")
@@ -206,7 +206,7 @@ def altar():
 
 def statistics():
     while True:
-        os.system("cls")
+        bh.clear_screen()
         print(f"{Color.BOLD}{Color.HEADER}Stats{Color.END}")
         print(f"\nGourd Pebbles:\n{save_data['statistics']['pebbles']}")
         print(f"\nGourd Seeds:\n{save_data['statistics']['seeds']}")
@@ -222,6 +222,7 @@ def statistics():
             break
 
 def run():
+    bh.clear_screen()
     while True:
         audio.stop_audio("GourdEnd", 500)
         audio.play_audio("Town", True, 500)
@@ -272,7 +273,7 @@ def run():
                     rollable = True
                 else:
                     rollable = False
-            os.system('cls')
+            bh.clear_screen()
             stats_bar = f"|| {Color.PEBBLE}₲{save_data['statistics']['pebbles']}{Color.END} | {Color.SEED}{save_data['statistics']['seeds']} Gourd Seeds{Color.END} ||"
             print("—" * (len(stats_bar) - 29))
             print(stats_bar)
@@ -340,7 +341,7 @@ def run():
             if non_modifier_streak == 5:
                 game_data.unlock_relic("Change")
 
-            os.system('cls')
+            bh.clear_screen()
             if rolls > 0 and rolls % 5 == 0:
                 bh.timed_print(f"Do you which to leave with all your scavenged loot? (Y / N)")
                 choice = input(">")
@@ -349,7 +350,7 @@ def run():
                     audio.play_audio("GourdYes")
                     game_data.add_pebbles(current_pebbles)
                     game_data.add_seeds(current_seeds)
-                    os.system('cls')
+                    bh.clear_screen()
                     bh.slow_text(f"You return safely back to Town.")
                     time.sleep(1)
                     bh.timed_print(f"+ {Color.PEBBLE}₲{current_pebbles}{Color.END}", 500)
@@ -357,7 +358,7 @@ def run():
                     print(Color.ITALIC + Color.GRAY + "(Press 'enter' to continue)" + Color.END)
                     input()
                     break
-                os.system('cls')
+                bh.clear_screen()
                 audio.play_audio("GourdNo")
 
             if (rolls + 1) % 10 != 0:
@@ -455,7 +456,7 @@ def run():
 
                 g_weapon_name += g_weapon_prefix + g_weapon_name_full
                     
-            os.system('cls')
+            bh.clear_screen()
             bh.timed_print(f"{Color.BOLD}ROLL {rolls + 1}{Color.END}\n")
             audio.play_audio("GourdBallRoll")
             bh.timed_print(f"The Ball is rolling", 3000)
