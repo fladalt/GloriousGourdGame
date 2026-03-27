@@ -23,23 +23,23 @@ class GameDataManager:
         self._merge_missing_bosses()
 
     def _load_save_data(self):
-        with open(self.save_path, "r") as f:
+        with open(self.save_path, "r", encoding="utf-8") as f:
             return json.load(f)
         
     def _load_item_data(self):
-        with open(self.item_path, "r") as f:
+        with open(self.item_path, "r", encoding="utf-8") as f:
             return json.load(f)
         
     def _load_modifier_data(self):
-        with open(self.modifier_path, "r") as f:
+        with open(self.modifier_path, "r", encoding="utf-8") as f:
             return json.load(f)
         
     def _load_relic_data(self):
-        with open(self.relic_path, "r") as f:
+        with open(self.relic_path, "r", encoding="utf-8") as f:
             return json.load(f)
         
     def _load_boss_data(self):
-        with open(self.boss_path, "r") as f:
+        with open(self.boss_path, "r", encoding="utf-8") as f:
             return json.load(f)
 
     def _merge_missing_items(self):
@@ -71,7 +71,7 @@ class GameDataManager:
                 self.save_data["bosses"][boss] = {"kills": 0}
 
     def save(self):
-        with open(self.save_path, "w") as f:
+        with open(self.save_path, "w", encoding="utf-8") as f:
             json.dump(self.save_data, f, indent=4)
 
     def unlock_pack(self, pack):
@@ -86,21 +86,21 @@ class GameDataManager:
     def equip_pack(self, pack):
         if pack in self.save_data["equipped"]:
             self.save_data["equipped"].remove(pack)
-        elif self.save_data["packs"][pack]["unlocked"] == True and pack not in self.save_data["equipped"]:
+        elif self.save_data["packs"][pack]["unlocked"] is True and pack not in self.save_data["equipped"]:
             self.save_data["equipped"].append(pack)
         self.save()
 
     def equip_pack_m(self, pack):
         if pack in self.save_data["equipped_m"]:
             self.save_data["equipped_m"].remove(pack)
-        elif self.save_data["packs_m"][pack]["unlocked"] == True and pack not in self.save_data["equipped_m"]:
+        elif self.save_data["packs_m"][pack]["unlocked"] is True and pack not in self.save_data["equipped_m"]:
             self.save_data["equipped_m"].append(pack)
         self.save()
 
     def equip_relic(self, relic):
         if relic in self.save_data["equipped_r"]:
             self.save_data["equipped_r"].remove(relic)
-        elif self.save_data["relics"][relic]["unlocked"] == True and relic not in self.save_data["equipped_r"]:
+        elif self.save_data["relics"][relic]["unlocked"] is True and relic not in self.save_data["equipped_r"]:
             self.save_data["equipped_r"].append(relic)
         self.save()
 
@@ -174,6 +174,7 @@ class Color:
     DAMAGE = '\033[48:5:88m'
     MULT = '\033[48:5:53m'
 
+    @staticmethod
     def RAINBOW(text, start=-1):
         rainbow_parts = ["\033[38:5:196m", #RED
                      "\033[38:5:202m", #RED-ORANGE
@@ -191,7 +192,7 @@ class Color:
                      "\033[38:5:129m", #PURPLE-PINK
                      "\033[38:5:201m", #PINK
                      "\033[38:5:198m"] #PINK-RED
-        
+
         final_text = ""
 
         if start == -1:
