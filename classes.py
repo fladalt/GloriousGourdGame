@@ -17,6 +17,7 @@ class GameDataManager:
         self.modifier_data = self._load_modifier_data()
         self.relic_data = self._load_relic_data()
         self.boss_data = self._load_boss_data()
+        self._merge_missing_categories()
         self._merge_missing_items()
         self._merge_missing_modifiers()
         self._merge_missing_relics()
@@ -41,6 +42,32 @@ class GameDataManager:
     def _load_boss_data(self):
         with open(self.boss_path, "r", encoding="utf-8") as f:
             return json.load(f)
+
+    def _merge_missing_categories(self):
+
+        # Statistics Section
+        if "statistics" not in self.save_data:
+            self.save_data["statistics"] = { }
+
+        statistics_parts = ["pebbles", "seeds", "total rolls", "wins"]
+
+        for stat in statistics_parts:
+            if stat not in self.save_data["statistics"]:
+                self.save_data["statistics"][stat] = 0
+
+        # List Sections
+        list_parts = ["equipped", "equipped_m", "equipped_r"]
+
+        for part in list_parts:
+            if part not in self.save_data:
+                self.save_data[part] = []
+
+        # Dictionary Sections
+        dictionary_parts = ["packs", "packs_m", "items", "modifiers", "relics", "bosses"]
+
+        for part in dictionary_parts:
+            if part not in self.save_data:
+                self.save_data[part] = {}
 
     def _merge_missing_items(self):
         for pack in self.item_data:
