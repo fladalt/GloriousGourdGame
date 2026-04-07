@@ -3,7 +3,8 @@
         "pebbles": 0,
         "seeds": 0,
         "total rolls": 0,
-        "wins": 0
+        "wins": 0,
+        "mass": 0
     },
     "bosses": {
 
@@ -15,6 +16,7 @@
         "Beginner"
     ],
     "equipped_r": [],
+    "seeds": [],
     "packs": {
         "Beginner": {
             "unlocked": true

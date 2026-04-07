@@ -49,14 +49,14 @@ class GameDataManager:
         if "statistics" not in self.save_data:
             self.save_data["statistics"] = { }
 
-        statistics_parts = ["pebbles", "seeds", "total rolls", "wins"]
+        statistics_parts = ["pebbles", "seeds", "total rolls", "wins", "mass"]
 
         for stat in statistics_parts:
             if stat not in self.save_data["statistics"]:
                 self.save_data["statistics"][stat] = 0
 
         # List Sections
-        list_parts = ["equipped", "equipped_m", "equipped_r"]
+        list_parts = ["equipped", "equipped_m", "equipped_r", "seeds"]
 
         for part in list_parts:
             if part not in self.save_data:
@@ -148,6 +148,9 @@ class GameDataManager:
 
     def add_wins(self, amount):
         self.save_data["statistics"]["wins"] += amount
+
+    def add_mass(self, amount):
+        self.save_data["statistics"]["mass"] += amount
 
 class AudioManager:
     def __init__(self):
