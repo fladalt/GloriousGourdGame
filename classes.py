@@ -2,6 +2,7 @@ import json
 import os
 import random
 import pygame
+import time
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -12,11 +13,13 @@ class GameDataManager:
         self.modifier_path = os.path.join(BASE_DIR, "modifier_packs.json")
         self.relic_path = os.path.join(BASE_DIR, "relic_items.json")
         self.boss_path = os.path.join(BASE_DIR, "bosses.json")
+        self.seed_path = os.path.join(BASE_DIR, "seeds.json")
         self.save_data = self._load_save_data()
         self.item_data = self._load_item_data()
         self.modifier_data = self._load_modifier_data()
         self.relic_data = self._load_relic_data()
         self.boss_data = self._load_boss_data()
+        self.seed_data = self._load_seed_data()
         self._merge_missing_categories()
         self._merge_missing_items()
         self._merge_missing_modifiers()
@@ -41,6 +44,10 @@ class GameDataManager:
         
     def _load_boss_data(self):
         with open(self.boss_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+        
+    def _load_seed_data(self):
+        with open(self.seed_path, "r", encoding="utf-8") as f:
             return json.load(f)
 
     def _merge_missing_categories(self):
@@ -68,6 +75,16 @@ class GameDataManager:
         for part in dictionary_parts:
             if part not in self.save_data:
                 self.save_data[part] = {}
+
+        # Farmlands Section
+        if "farmlands" not in self.save_data:
+            self.save_data["farmlands"] = {
+                i+1: {
+                    "unlocked": False,
+                    "seed": None,
+                    "time": None
+                } for i in range(4)
+            }
 
     def _merge_missing_items(self):
         for pack in self.item_data:
@@ -129,6 +146,46 @@ class GameDataManager:
             self.save_data["equipped_r"].remove(relic)
         elif self.save_data["relics"][relic]["unlocked"] is True and relic not in self.save_data["equipped_r"]:
             self.save_data["equipped_r"].append(relic)
+        self.save()
+
+    def add_seed(self, seed):
+        if seed in self.seed_data:
+            self.save_data["seeds"].append(seed)
+        self.save()
+
+    def remove_seed(self, seed):
+        if seed in self.save_data["seeds"]:
+            self.save_data["seeds"].remove(seed)
+        self.save()
+
+    def plant_seed(self, seed, plot):
+        if seed in self.save_data["seeds"] and self.save_data["farmlands"][str(plot)]["seed"] == None:
+            self.save_data["farmlands"][str(plot)]["seed"] = seed
+            self.save_data["farmlands"][str(plot)]["time"] = time.time()
+            self.remove_seed(seed)
+            return True
+        else:
+            return False
+        
+    def unplant_seed(self, plot):
+        if self.save_data["farmlands"][str(plot)]["seed"] != None:
+            self.save_data["farmlands"][str(plot)]["seed"] = None
+            self.save_data["farmlands"][str(plot)]["time"] = 0
+            self.save()
+
+    def harvest_seed(self, plot):
+        if self.save_data["farmlands"][str(plot)]["seed"] != None:
+            time_taken = time.time() - self.save_data["farmlands"][str(plot)]["time"]
+            if time_taken > self.seed_data[self.save_data["farmlands"][str(plot)]["seed"]]["Time"]:
+                self.save_data["farmlands"][str(plot)]["seed"] = None
+                self.save_data["farmlands"][str(plot)]["time"] = 0
+                self.add_mass(self.seed_data[self.save_data["farmlands"][str(plot)]["seed"]]["Mass"])
+                return True
+            else:
+                return False
+
+    def unlock_farmland(self, plot):
+        self.save_data["farmlands"][str(plot)]["unlocked"] = True
         self.save()
 
     def used_item(self, item):

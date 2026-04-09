@@ -1,0 +1,52 @@
+{
+    "Clover": {
+        "Mass": 0.1,
+        "Time": 900,
+        "Rarity": "Sprout"
+    },
+    "Turnip": {
+        "Mass": 0.1,
+        "Time": 600,
+        "Rarity": "Sprout"
+    },
+    "Ivy": {
+        "Mass": 0.15,
+        "Time": 700,
+        "Rarity": "Sprout"
+    },
+    "Iris": {
+        "Mass": 0.2,
+        "Time": 900,
+        "Rarity": "Sprout"
+    },
+    "Cranberry": {
+        "Mass": 0.4,
+        "Time": 700,
+        "Rarity": "Vine"
+    },
+    "Blackberry": {
+        "Mass": 0.5,
+        "Time": 900,
+        "Rarity": "Vine"
+    },
+    "Gooseberry": {
+        "Mass": 0.7,
+        "Time": 1300,
+        "Rarity": "Vine"
+    },
+    "Physalis": {
+        "Mass": 1.0,
+        "Time": 1800,
+        "Rarity": "Vine"
+    },
+    "Beet": {
+        "Mass": 1.5,
+        "Time": 1500,
+        "Rarity": "Blossom"
+    },
+    "Carrot": {
+        "Mass": 2.0,
+        "Time": 2200,
+        "Rarity": "Blossom"
+    }
+}

@@ -35,5 +35,27 @@
     },
     "relics": {
 
+    },
+    "farmlands": {
+        "1": {
+            "unlocked": false,
+            "seed": null,
+            "time": null
+        },
+        "2": {
+            "unlocked": false,
+            "seed": null,
+            "time": null
+        },
+        "3": {
+            "unlocked": false,
+            "seed": null,
+            "time": null
+        },
+        "4": {
+            "unlocked": false,
+            "seed": null,
+            "time": null
+        }
     }
 }

@@ -177,6 +177,51 @@ def inner_encyclopedia(item : bool):
             except:
                 pass
 
+def farm():
+    while True:
+        bh.clear_screen()
+        print(Color.HEADER + Color.BOLD + "FARM\n" + Color.END)
+        print("1. Store")
+        print("2. Farmlands")
+        print("3. Inventory")
+        print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
+        choice = input(">")
+        if choice == "1":
+            farm_shop()
+        elif choice == "2":
+            farmland()
+        elif choice == "3":
+            farm_inventory()
+        if choice.lower() == "exit":
+            break
+
+def farm_shop():
+    while True:
+        bh.clear_screen()
+        print(Color.HEADER + Color.BOLD + "FARM SHOP\n" + Color.END)
+        print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
+        choice = input(">")
+        if choice.lower() == "exit":
+            break
+
+def farmland():
+    while True:
+        bh.clear_screen()
+        print(Color.HEADER + Color.BOLD + "FARMLANDS\n" + Color.END)
+        print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
+        choice = input(">")
+        if choice.lower() == "exit":
+            break
+
+def farm_inventory():
+    while True:
+        bh.clear_screen()
+        print(Color.HEADER + Color.BOLD + "INVENTORY\n" + Color.END)
+        print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
+        choice = input(">")
+        if choice.lower() == "exit":
+            break
+
 def altar():
     while True:
         bh.clear_screen()
@@ -227,7 +272,7 @@ def board():
             print(f"{Color.GRAY}{Color.ITALIC}???{Color.END}")
 
         if rolls >= 45:
-            print("Getting further and further into a run will increase the rewards you get for each completed roll")
+            print("Getting further and further into a run will increase the rewards you get for each completed roll making long runs extremely profitable")
         else:
             print(f"{Color.GRAY}{Color.ITALIC}???{Color.END}")
 
@@ -322,7 +367,7 @@ def run():
             print("3. Shop")
             print("4. Encyclopedia")
             print(Color.GRAY + Color.ITALIC + "5. Endings [WIP]" + Color.END)
-            print(Color.GRAY + Color.ITALIC + "6. Farm [WIP]" + Color.END)
+            print("6. Farm")
             if total_boss_defeats >= 3:
                 print("7. The Altar")
             else:
@@ -346,7 +391,8 @@ def run():
             elif choice == "4":
                 encyclopedia()
             elif choice == "5":...
-            elif choice == "6":...
+            elif choice == "6":
+                farm()
             elif choice == "7" and total_boss_defeats >= 3:
                 altar()
             elif choice == "8":
