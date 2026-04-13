@@ -18,6 +18,7 @@ item_data = game_data.item_data
 modifier_data = game_data.modifier_data
 relic_data = game_data.relic_data
 boss_data = game_data.boss_data
+seed_data = game_data.seed_data
 
 audio = AudioManager()
 
@@ -42,6 +43,18 @@ gourd_bosses = []
 
 for boss in boss_data.keys():
     gourd_bosses.append(boss)
+
+sprout_seeds = []
+vine_seeds = []
+blossom_seeds = []
+
+for seed_name, seed in seed_data.items():
+    if seed["Rarity"] == "Sprout":
+        sprout_seeds.append(seed_name)
+    if seed["Rarity"] == "Vine":
+        vine_seeds.append(seed_name)
+    if seed["Rarity"] == "Blossom":
+        blossom_seeds.append(seed_name)
 
 def deck_builder():
     while True:
@@ -184,6 +197,7 @@ def farm():
         print("1. Store")
         print("2. Farmlands")
         print("3. Inventory")
+        print("4. Console")
         print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
         if choice == "1":
@@ -192,15 +206,47 @@ def farm():
             farmland()
         elif choice == "3":
             farm_inventory()
+        elif choice == "4":
+            farm_console()
         if choice.lower() == "exit":
             break
 
 def farm_shop():
     while True:
         bh.clear_screen()
-        print(Color.HEADER + Color.BOLD + "FARM SHOP\n" + Color.END)
+        print(Color.HEADER + Color.BOLD + "FARM STORE" + Color.END)
+        print(f"{Color.SEED}{save_data['statistics']['seeds']} Gourd Seeds{Color.END}")
+        print(f"{Color.MASS}{save_data["statistics"]["mass"]:.2f}₥{Color.END}\n")
+        print("1. Common Seed Pack [10 seeds]")
+        print("2. Rare Seed Pack [25 seeds]")
+        print("3. Exotic Seed Pack [45 seeds]")
+        print("4. Gourdtacular Seed Pack [100 seeds]\n")
         print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
+        seed_list = None
+        if choice == "1" and save_data["statistics"]["seeds"] >= 10:
+            game_data.add_seeds(-10)
+            seed_list = random.choices([sprout_seeds, vine_seeds, blossom_seeds], [100, 10, 1])[0]
+        elif choice == "2" and save_data["statistics"]["seeds"] >= 25:
+            game_data.add_seeds(-25)
+            seed_list = random.choices([sprout_seeds, vine_seeds, blossom_seeds], [80, 15, 2])[0]
+        elif choice == "3" and save_data["statistics"]["seeds"] >= 45:
+            game_data.add_seeds(-45)
+            seed_list = random.choices([sprout_seeds, vine_seeds, blossom_seeds], [50, 25, 3])[0]
+        elif choice == "4" and save_data["statistics"]["seeds"] >= 100:
+            game_data.add_seeds(-100)
+            seed_list = random.choices([sprout_seeds, vine_seeds, blossom_seeds], [0, 10, 5])[0]
+
+        if seed_list != None:
+            picked_seed = random.choice(seed_list)
+            game_data.add_seed(picked_seed)
+            if seed_list == sprout_seeds:
+                seed_pack_opening(f"{Color.SPROUT}{picked_seed}{Color.END}")
+            elif seed_list == vine_seeds:
+                seed_pack_opening(f"{Color.VINE}{picked_seed}{Color.END}")
+            elif seed_list == blossom_seeds:
+                seed_pack_opening(f"{Color.BLOSSOM}{picked_seed}{Color.END}")
+
         if choice.lower() == "exit":
             break
 
@@ -217,10 +263,37 @@ def farm_inventory():
     while True:
         bh.clear_screen()
         print(Color.HEADER + Color.BOLD + "INVENTORY\n" + Color.END)
+        for seed in save_data["seeds"]:
+            print(f"{seed}")
+        print(f"\n{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
+        choice = input(">")
+        if choice.lower() == "exit":
+            break
+
+def farm_console():
+    while True:
+        bh.clear_screen()
+        print(Color.HEADER + Color.BOLD + "CONSOLE\n" + Color.END)
         print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
         if choice.lower() == "exit":
             break
+
+def seed_pack_opening(seed):
+    bh.clear_screen()
+    bh.slow_text("You got...", 100)
+    bh.slow_text(f"{seed} Seeds!")
+    print(Color.ITALIC + Color.GRAY + "(Press 'enter' to continue)" + Color.END)
+    input()
+
+def get_seed_data(seed):
+    bh.clear_screen()
+    print(f"{Color.BOLD}{seed}{Color.END}")
+    print(f"Mass: {seed_data["seed"]["Mass"]}")
+    print(f"Time: {seed_data["seed"]["Time"]}")
+    print(f"Rarity: {seed_data["seed"]["Rarity"]}")
+    print(Color.ITALIC + Color.GRAY + "(Press 'enter' to continue)" + Color.END)
+    input()
 
 def altar():
     while True:
