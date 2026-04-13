@@ -44,17 +44,23 @@ gourd_bosses = []
 for boss in boss_data.keys():
     gourd_bosses.append(boss)
 
+root_seeds = []
 sprout_seeds = []
 vine_seeds = []
 blossom_seeds = []
+gourd_seeds = []
 
 for seed_name, seed in seed_data.items():
+    if seed["Rarity"] == "Root":
+        root_seeds.append(seed_name)
     if seed["Rarity"] == "Sprout":
         sprout_seeds.append(seed_name)
     if seed["Rarity"] == "Vine":
         vine_seeds.append(seed_name)
     if seed["Rarity"] == "Blossom":
         blossom_seeds.append(seed_name)
+    if seed["Rarity"] == "Gourd":
+        gourd_seeds.append(seed_name)
 
 def deck_builder():
     while True:
@@ -226,16 +232,16 @@ def farm_shop():
         seed_list = None
         if choice == "1" and save_data["statistics"]["seeds"] >= 10:
             game_data.add_seeds(-10)
-            seed_list = random.choices([sprout_seeds, vine_seeds, blossom_seeds], [100, 10, 1])[0]
+            seed_list = random.choices([root_seeds, sprout_seeds, vine_seeds], [100, 15, 5])[0]
         elif choice == "2" and save_data["statistics"]["seeds"] >= 25:
             game_data.add_seeds(-25)
-            seed_list = random.choices([sprout_seeds, vine_seeds, blossom_seeds], [80, 15, 2])[0]
+            seed_list = random.choices([root_seeds, sprout_seeds, vine_seeds, blossom_seeds], [50, 15, 5, 2])[0]
         elif choice == "3" and save_data["statistics"]["seeds"] >= 45:
             game_data.add_seeds(-45)
-            seed_list = random.choices([sprout_seeds, vine_seeds, blossom_seeds], [50, 25, 3])[0]
+            seed_list = random.choices([sprout_seeds, vine_seeds, blossom_seeds, gourd_seeds], [50, 25, 10, 1])[0]
         elif choice == "4" and save_data["statistics"]["seeds"] >= 100:
             game_data.add_seeds(-100)
-            seed_list = random.choices([sprout_seeds, vine_seeds, blossom_seeds], [0, 10, 5])[0]
+            seed_list = random.choices([sprout_seeds, vine_seeds, blossom_seeds, gourd_seeds], [20, 25, 20, 10])[0]
 
         if seed_list != None:
             picked_seed = random.choice(seed_list)
@@ -481,7 +487,10 @@ def run():
             print("3. Shop")
             print("4. Encyclopedia")
             print(Color.GRAY + Color.ITALIC + "5. Endings [WIP]" + Color.END)
-            print("6. Farm")
+            if save_data["statistics"]["total rolls"] >= 10:
+                print("6. The Farm")
+            else:
+                print(Color.GRAY + Color.ITALIC + "6. The Farm" + Color.END)
             if total_boss_defeats >= 3:
                 print("7. The Altar")
             else:
@@ -505,7 +514,7 @@ def run():
             elif choice == "4":
                 encyclopedia()
             elif choice == "5":...
-            elif choice == "6":
+            elif choice == "6" and save_data["statistics"]["total rolls"] >= 10:
                 farm()
             elif choice == "7" and total_boss_defeats >= 3:
                 altar()

@@ -1,52 +1,102 @@
 {
     "Clover": {
-        "Mass": 0.1,
-        "Time": 900,
-        "Rarity": "Sprout"
+        "Mass": 0.24,
+        "Time": 600,
+        "Rarity": "Root"
     },
     "Turnip": {
-        "Mass": 0.1,
-        "Time": 600,
-        "Rarity": "Sprout"
+        "Mass": 0.27,
+        "Time": 720,
+        "Rarity": "Root"
     },
     "Ivy": {
-        "Mass": 0.15,
-        "Time": 700,
-        "Rarity": "Sprout"
+        "Mass": 0.33,
+        "Time": 900,
+        "Rarity": "Root"
     },
     "Iris": {
-        "Mass": 0.2,
-        "Time": 900,
-        "Rarity": "Sprout"
+        "Mass": 0.41,
+        "Time": 1200,
+        "Rarity": "Root"
     },
     "Cranberry": {
-        "Mass": 0.4,
-        "Time": 700,
-        "Rarity": "Vine"
+        "Mass": 0.60,
+        "Time": 1800,
+        "Rarity": "Sprout"
     },
     "Blackberry": {
-        "Mass": 0.5,
-        "Time": 900,
-        "Rarity": "Vine"
+        "Mass": 0.67,
+        "Time": 2100,
+        "Rarity": "Sprout"
     },
     "Gooseberry": {
-        "Mass": 0.7,
-        "Time": 1300,
-        "Rarity": "Vine"
+        "Mass": 0.79,
+        "Time": 2600,
+        "Rarity": "Sprout"
     },
     "Physalis": {
-        "Mass": 1.0,
-        "Time": 1800,
-        "Rarity": "Vine"
+        "Mass": 0.87,
+        "Time": 3000,
+        "Rarity": "Sprout"
     },
     "Beet": {
-        "Mass": 1.5,
-        "Time": 1500,
-        "Rarity": "Blossom"
+        "Mass": 1.0,
+        "Time": 3600,
+        "Rarity": "Vine"
     },
     "Carrot": {
-        "Mass": 2.0,
-        "Time": 2200,
+        "Mass": 1.2,
+        "Time": 4800,
+        "Rarity": "Vine"
+    },
+    "Sunflower": {
+        "Mass": 1.5,
+        "Time": 6000,
+        "Rarity": "Vine"
+    },
+    "Blueberry": {
+        "Mass": 1.7,
+        "Time": 7200,
+        "Rarity": "Vine"
+    },
+    "Orchid": {
+        "Mass": 3.2,
+        "Time": 14400,
         "Rarity": "Blossom"
+    },
+    "Carnation": {
+        "Mass": 4.5,
+        "Time": 21600,
+        "Rarity": "Blossom"
+    },
+    "Rhododendron": {
+        "Mass": 6.0,
+        "Time": 30600,
+        "Rarity": "Blossom"
+    },
+    "Pumpkin": {
+        "Mass": 7.8,
+        "Time": 43200,
+        "Rarity": "Blossom"
+    },
+    "Ivy Gourd": {
+        "Mass": 14.4,
+        "Time": 86400,
+        "Rarity": "Gourd"
+    },
+    "Sponge Gourd": {
+        "Mass": 17.4,
+        "Time": 108000,
+        "Rarity": "Gourd"
+    },
+    "Bottle Gourd": {
+        "Mass": 21.3,
+        "Time": 136800,
+        "Rarity": "Gourd"
+    },
+    "Devouring Gourd": {
+        "Mass": 26.0,
+        "Time": 172800,
+        "Rarity": "Gourd"
     }
 }
