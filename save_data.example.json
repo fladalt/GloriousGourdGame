@@ -38,7 +38,7 @@
     },
     "farmlands": {
         "1": {
-            "unlocked": false,
+            "unlocked": true,
             "seed": null,
             "time": null
         },

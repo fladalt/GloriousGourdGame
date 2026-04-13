@@ -26,6 +26,9 @@ class GameDataManager:
         self._merge_missing_relics()
         self._merge_missing_bosses()
 
+        self.save_data["packs"]["Beginner"]["unlocked"] = True
+        self.save_data["packs_m"]["Beginner"]["unlocked"] = True
+
     def _load_save_data(self):
         with open(self.save_path, "r", encoding="utf-8") as f:
             return json.load(f)
