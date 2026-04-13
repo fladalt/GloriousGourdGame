@@ -86,6 +86,8 @@ class GameDataManager:
                 } for i in range(4)
             }
 
+        self.save_data["farmlands"]["1"]["unlocked"] = True
+
     def _merge_missing_items(self):
         for pack in self.item_data:
             if pack not in self.save_data["packs"]:
@@ -149,17 +151,20 @@ class GameDataManager:
         self.save()
 
     def add_seed(self, seed):
+        seed = seed.capitalize()
         if seed in self.seed_data:
             self.save_data["seeds"].append(seed)
         self.save()
 
     def remove_seed(self, seed):
+        seed = seed.capitalize()
         if seed in self.save_data["seeds"]:
             self.save_data["seeds"].remove(seed)
         self.save()
 
     def plant_seed(self, seed, plot):
-        if seed in self.save_data["seeds"] and self.save_data["farmlands"][str(plot)]["seed"] == None:
+        seed = seed.capitalize()
+        if seed in self.save_data["seeds"] and self.save_data["farmlands"][str(plot)]["seed"] == None and self.save_data["farmlands"][str(plot)]["unlocked"] == True:
             self.save_data["farmlands"][str(plot)]["seed"] = seed
             self.save_data["farmlands"][str(plot)]["time"] = time.time()
             self.remove_seed(seed)
@@ -177,9 +182,10 @@ class GameDataManager:
         if self.save_data["farmlands"][str(plot)]["seed"] != None:
             time_taken = time.time() - self.save_data["farmlands"][str(plot)]["time"]
             if time_taken > self.seed_data[self.save_data["farmlands"][str(plot)]["seed"]]["Time"]:
+                self.add_mass(self.seed_data[self.save_data["farmlands"][str(plot)]["seed"]]["Mass"])
                 self.save_data["farmlands"][str(plot)]["seed"] = None
                 self.save_data["farmlands"][str(plot)]["time"] = 0
-                self.add_mass(self.seed_data[self.save_data["farmlands"][str(plot)]["seed"]]["Mass"])
+                self.save()
                 return True
             else:
                 return False

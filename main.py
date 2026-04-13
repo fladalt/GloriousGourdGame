@@ -254,6 +254,18 @@ def farmland():
     while True:
         bh.clear_screen()
         print(Color.HEADER + Color.BOLD + "FARMLANDS\n" + Color.END)
+        for i in range(4):
+            if save_data["farmlands"][str(i+1)]["unlocked"]:
+                print(f"Plot {i+1}")
+                print(f"Plant: {save_data["farmlands"][str(i+1)]["seed"]}")
+                if save_data["farmlands"][str(i+1)]["seed"] == None:
+                    print("Time: -\n")
+                else:
+                    print(f"Time: {int(seed_data[save_data["farmlands"][str(i+1)]["seed"]]["Time"] - (time.time() - save_data["farmlands"][str(i+1)]["time"]))} Remaining\n")
+            else:
+                print(f"{Color.GRAY}{Color.ITALIC}Plot {i+1} [Locked]")
+                print(f"Plant: -")
+                print(f"Time: -{Color.END}\n")
         print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
         if choice.lower() == "exit":
@@ -274,8 +286,37 @@ def farm_console():
     while True:
         bh.clear_screen()
         print(Color.HEADER + Color.BOLD + "CONSOLE\n" + Color.END)
-        print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
+        print("-farm plant <plot> <seed>")
+        print("-farm harvest <plot>")
+        print("-farm clear <plot>")
+        print("-seed data <seed>")
+        print(f"\n{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
+        split_message = choice.split()
+        if len(split_message) > 1:
+            if split_message[0] == "farm" and split_message[1] == "plant":
+                try:
+                    if int(split_message[2]) > 0 and int(split_message[2]) < 5:
+                        game_data.plant_seed(split_message[3], int(split_message[2]))
+                except:
+                    pass
+            elif split_message[0] == "farm" and split_message[1] == "harvest":
+                try:
+                    if int(split_message[2]) > 0 and int(split_message[2]) < 5:
+                        game_data.harvest_seed(int(split_message[2]))
+                except:
+                    pass
+            elif split_message[0] == "farm" and split_message[1] == "clear":
+                try:
+                    if int(split_message[2]) > 0 and int(split_message[2]) < 5:
+                        game_data.unplant_seed(int(split_message[2]))
+                except:
+                    pass
+            elif split_message[0] == "seed" and split_message[1] == "data":
+                if len(split_message) == 3:
+                    if split_message[2].capitalize() in seed_data:
+                        get_seed_data(split_message[2].capitalize())
+
         if choice.lower() == "exit":
             break
 
@@ -289,9 +330,9 @@ def seed_pack_opening(seed):
 def get_seed_data(seed):
     bh.clear_screen()
     print(f"{Color.BOLD}{seed}{Color.END}")
-    print(f"Mass: {seed_data["seed"]["Mass"]}")
-    print(f"Time: {seed_data["seed"]["Time"]}")
-    print(f"Rarity: {seed_data["seed"]["Rarity"]}")
+    print(f"Mass: {seed_data[seed]["Mass"]}")
+    print(f"Time: {seed_data[seed]["Time"]}")
+    print(f"Rarity: {seed_data[seed]["Rarity"]}")
     print(Color.ITALIC + Color.GRAY + "(Press 'enter' to continue)" + Color.END)
     input()
 
