@@ -19,6 +19,7 @@ modifier_data = game_data.modifier_data
 relic_data = game_data.relic_data
 boss_data = game_data.boss_data
 seed_data = game_data.seed_data
+upgrade_data = game_data.upgrade_data
 
 audio = AudioManager()
 
@@ -227,8 +228,22 @@ def farm_shop():
         print("2. Rare Seed Pack [25 seeds]")
         print("3. Exotic Seed Pack [45 seeds]")
         print("4. Gourdtacular Seed Pack [100 seeds]\n")
-        print(f"{Color.GRAY}{Color.ITALIC}Gourd Mass Board WIP (More plots, permanent upgrades to main game + more){Color.END}\n")
-        print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
+        prices = {}
+        for i, (upgrade_name, upgrade) in enumerate(upgrade_data["Gourd Mass Board"].items(), start=5):
+            amount_bought = save_data["upgrade_boards"]["Gourd Mass Board"][upgrade_name]["bought"]
+            bought_text = amount_bought if amount_bought != upgrade["Max"] else "MAX"
+            current_price = amount_bought * upgrade["Increase"] * upgrade["Price"] + upgrade["Price"] if upgrade["Exponential"] == False else upgrade["Price"] * (upgrade["Increase"] ** amount_bought)
+            prices[upgrade_name] = current_price
+            if upgrade_name == "Pebbles":
+                special = f"{Color.MULT}{1 + (0.05 * amount_bought)}X{Color.END} Pebbles"
+            elif upgrade_name == "Seeds":
+                special = f"{Color.SEED}+{amount_bought}{Color.END} Seeds"
+            elif upgrade_name == "Damage":
+                special = f"{Color.DAMAGE}+{0.5 * amount_bought}{Color.END} Damage"
+            elif upgrade_name == "Plots":
+                special = f"{Color.SPROUT}+{amount_bought}{Color.END} Plots"
+            print(f"{i}. {upgrade_name} ({bought_text}) [{Color.MASS}{current_price:.2f}₥{Color.END}] {special}")
+        print(f"\n{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
         seed_list = None
         if choice == "1" and save_data["statistics"]["seeds"] >= 10:
@@ -243,6 +258,15 @@ def farm_shop():
         elif choice == "4" and save_data["statistics"]["seeds"] >= 100:
             game_data.add_seeds(-100)
             seed_list = random.choices([sprout_seeds, vine_seeds, blossom_seeds, gourd_seeds], [20, 25, 20, 10])[0]
+
+        try:
+            if int(choice) > 4 and int(choice) < 9:
+                for i, (upgrade_name, upgrade) in enumerate(upgrade_data["Gourd Mass Board"].items(), start=5):
+                    if int(choice) == i:
+                        if save_data["statistics"]["mass"] >= prices[upgrade_name]:
+                            game_data.buy_upgrade("Gourd Mass Board", upgrade_name, prices[upgrade_name])
+        except:
+            pass
 
         if seed_list != None:
             picked_seed = random.choice(seed_list)

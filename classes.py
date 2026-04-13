@@ -212,6 +212,12 @@ class GameDataManager:
         self.save_data["farmlands"][str(plot)]["unlocked"] = True
         self.save()
 
+    def buy_upgrade(self, board, upgrade, price):
+        if self.save_data["upgrade_boards"][board][upgrade]["bought"] != self.upgrade_data[board][upgrade]["Max"]:
+            self.save_data["upgrade_boards"][board][upgrade]["bought"] += 1
+            self.add_mass(-price)
+        self.save()
+
     def used_item(self, item):
         self.save_data["items"][item]["used"] = True
 
