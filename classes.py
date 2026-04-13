@@ -14,17 +14,20 @@ class GameDataManager:
         self.relic_path = os.path.join(BASE_DIR, "relic_items.json")
         self.boss_path = os.path.join(BASE_DIR, "bosses.json")
         self.seed_path = os.path.join(BASE_DIR, "seeds.json")
+        self.upgrade_path = os.path.join(BASE_DIR, "upgrades.json")
         self.save_data = self._load_save_data()
         self.item_data = self._load_item_data()
         self.modifier_data = self._load_modifier_data()
         self.relic_data = self._load_relic_data()
         self.boss_data = self._load_boss_data()
         self.seed_data = self._load_seed_data()
+        self.upgrade_data = self._load_upgrade_data()
         self._merge_missing_categories()
         self._merge_missing_items()
         self._merge_missing_modifiers()
         self._merge_missing_relics()
         self._merge_missing_bosses()
+        self._merge_missing_upgrades()
 
         self.save_data["packs"]["Beginner"]["unlocked"] = True
         self.save_data["packs_m"]["Beginner"]["unlocked"] = True
@@ -52,6 +55,10 @@ class GameDataManager:
     def _load_seed_data(self):
         with open(self.seed_path, "r", encoding="utf-8") as f:
             return json.load(f)
+        
+    def _load_upgrade_data(self):
+        with open(self.upgrade_path, "r", encoding="utf-8") as f:
+            return json.load(f)
 
     def _merge_missing_categories(self):
 
@@ -73,7 +80,7 @@ class GameDataManager:
                 self.save_data[part] = []
 
         # Dictionary Sections
-        dictionary_parts = ["packs", "packs_m", "items", "modifiers", "relics", "bosses"]
+        dictionary_parts = ["packs", "packs_m", "items", "modifiers", "relics", "bosses", "upgrade_boards"]
 
         for part in dictionary_parts:
             if part not in self.save_data:
@@ -118,6 +125,14 @@ class GameDataManager:
         for boss in self.boss_data:
             if boss not in self.save_data["bosses"]:
                 self.save_data["bosses"][boss] = {"kills": 0}
+
+    def _merge_missing_upgrades(self):
+        for upgrade_board in self.upgrade_data:
+            if upgrade_board not in self.save_data["upgrade_boards"]:
+                self.save_data["upgrade_boards"][upgrade_board] = {}
+            for upgrade in self.upgrade_data[upgrade_board]:
+                if upgrade not in self.save_data["upgrade_boards"][upgrade_board]:
+                    self.save_data["upgrade_boards"][upgrade_board][upgrade] = {"bought": 0}
 
     def save(self):
         with open(self.save_path, "w", encoding="utf-8") as f:

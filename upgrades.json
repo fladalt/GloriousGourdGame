@@ -1,0 +1,28 @@
+{
+    "Gourd Mass Board": {
+        "Pebbles": {
+            "Price": 0.2,
+            "Increase": 2,
+            "Exponential": false,
+            "Max": 999
+        },
+        "Seeds": {
+            "Price": 2.0,
+            "Increase": 2,
+            "Exponential": true,
+            "Max": 5
+        },
+        "Damage": {
+            "Price": 10.0,
+            "Increase": 10,
+            "Exponential": true,
+            "Max": 2
+        },
+        "Plots": {
+            "Price": 1.5,
+            "Increase": 10,
+            "Exponential": false,
+            "Max": 3
+        }
+    }
+}
