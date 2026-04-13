@@ -227,6 +227,7 @@ def farm_shop():
         print("2. Rare Seed Pack [25 seeds]")
         print("3. Exotic Seed Pack [45 seeds]")
         print("4. Gourdtacular Seed Pack [100 seeds]\n")
+        print(f"{Color.GRAY}{Color.ITALIC}Gourd Mass Board WIP (More plots, permanent upgrades to main game + more){Color.END}\n")
         print(f"{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")
         seed_list = None
@@ -322,6 +323,9 @@ def farm_console():
                 if len(split_message) == 3:
                     if split_message[2].capitalize() in seed_data:
                         get_seed_data(split_message[2].capitalize())
+                elif len(split_message) == 4:
+                    if f"{split_message[2].capitalize()} {split_message[3].capitalize()}" in seed_data:
+                        get_seed_data(f"{split_message[2].capitalize()} {split_message[3].capitalize()}")
 
         if choice.lower() == "exit":
             break
