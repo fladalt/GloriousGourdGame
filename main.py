@@ -282,6 +282,8 @@ def farm_shop():
             break
 
 def farmland():
+    for i in range(save_data["upgrade_boards"]["Gourd Mass Board"]["Plots"]["bought"]):
+        game_data.unlock_farmland(i + 2)
     while True:
         bh.clear_screen()
         print(Color.HEADER + Color.BOLD + "FARMLANDS\n" + Color.END)
@@ -776,6 +778,7 @@ def run():
                     except:
                         pass
 
+                damage += 0.5 * save_data["upgrade_boards"]["Gourd Mass Board"]["Damage"]["bought"]
                 total_damage += damage
                 if damage >= 50 and current_gourd in gourd_bosses:
                     game_data.unlock_relic("The Blind")
@@ -810,9 +813,11 @@ def run():
                 if damage == allowed_values[0]:
                     new_pebbles *= 1.5
 
+            new_pebbles *= 1 + (0.05 * save_data["upgrade_boards"]["Gourd Mass Board"]["Pebbles"]["bought"])
+
             new_pebbles *= 1 + (math.floor((rolls + 1) / 10) / 10)
 
-            new_seeds += math.floor((rolls + 1) / 20)
+            new_seeds += math.floor((rolls + 1) / 20) + save_data["upgrade_boards"]["Gourd Mass Board"]["Seeds"]["bought"]
 
             new_pebbles = int(new_pebbles * (len(save_data["equipped_r"]) + 1))
 
