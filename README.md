@@ -29,3 +29,19 @@ Obogg - Linux compatability + general code help
 >"The greatest gourd is the gourd yet harvested"
 >
 >\- John Calender
+
+# Changelog
+
+## v0.2
+### Features
+- Added The Farm to the game
+- Added various farming features
+- Added new way to boost your runs with various upgrades
+- Added a Notice Board for various tips which can be unlocked
+
+### Backend
+- Made the whole save file dynamic which can be updated from any version without breaking
+
+## v0.1
+### Features
+- Initial Release
