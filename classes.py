@@ -78,6 +78,8 @@ class GameDataManager:
         for part in list_parts:
             if part not in self.save_data:
                 self.save_data[part] = []
+                if part == "equipped" or part == "equipped_m":
+                    self.save_data[part].append("Beginner")
 
         # Dictionary Sections
         dictionary_parts = ["packs", "packs_m", "items", "modifiers", "relics", "bosses", "upgrade_boards"]
@@ -89,7 +91,7 @@ class GameDataManager:
         # Farmlands Section
         if "farmlands" not in self.save_data:
             self.save_data["farmlands"] = {
-                i+1: {
+                str(i+1): {
                     "unlocked": False,
                     "seed": None,
                     "time": None
