@@ -295,10 +295,10 @@ class Color:
     MULT = '\033[48:5:53m'
     EXTRA = '\033[48:5:63m'
 
+    ROOT = '\033[38:5:94m'
     SPROUT = '\033[38:5:107m'
     VINE = '\033[38:5:34m'
     BLOSSOM = '\033[38:5:211m'
-    #???
     GOURD = '\033[38:5:202m'
 
     @staticmethod

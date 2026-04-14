@@ -271,12 +271,16 @@ def farm_shop():
         if seed_list != None:
             picked_seed = random.choice(seed_list)
             game_data.add_seed(picked_seed)
-            if seed_list == sprout_seeds:
+            if seed_list == root_seeds:
+                seed_pack_opening(f"{Color.ROOT}{picked_seed}{Color.END}")
+            elif seed_list == sprout_seeds:
                 seed_pack_opening(f"{Color.SPROUT}{picked_seed}{Color.END}")
             elif seed_list == vine_seeds:
                 seed_pack_opening(f"{Color.VINE}{picked_seed}{Color.END}")
             elif seed_list == blossom_seeds:
                 seed_pack_opening(f"{Color.BLOSSOM}{picked_seed}{Color.END}")
+            elif seed_list == gourd_seeds:
+                seed_pack_opening(f"{Color.GOURD}{picked_seed}{Color.END}")
 
         if choice.lower() == "exit":
             break
@@ -431,6 +435,10 @@ def board():
         else:
             print(f"{Color.GRAY}{Color.ITALIC}???{Color.END}")
 
+        if rolls >= 75:
+            print("If multiple weapon choices can defeat the enemy, choosing the lower is bound to give you more wealth")
+        else:
+            print(f"{Color.GRAY}{Color.ITALIC}???{Color.END}")
 
         print(f"\n{Color.GRAY}{Color.ITALIC}Type 'exit' to leave{Color.END}")
         choice = input(">")

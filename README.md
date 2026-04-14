@@ -32,6 +32,14 @@ Obogg - Linux compatability + general code help
 
 # Changelog
 
+## v0.2.1
+### Additions
+- Added new tip to Notice Board
+
+### Bug Fixes
+- Fixed death screen displaying wrong amount of pebbles
+- Fixed certain seed packs not having opening animations
+
 ## v0.2
 ### Features
 - Added The Farm to the game
