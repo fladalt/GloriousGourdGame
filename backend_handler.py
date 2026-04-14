@@ -64,6 +64,6 @@ def defeated(pebbles):
 """)
     time.sleep(1)
     slow_text("You have been defeated.")
-    timed_print(f"+ {Color.PEBBLE}₲{pebbles}{Color.END}", 500)
+    timed_print(f"+ {Color.PEBBLE}₲{int(pebbles/2)}{Color.END}", 500)
     print(Color.ITALIC + Color.GRAY + "(Press 'enter' to continue)" + Color.END)
     input()
